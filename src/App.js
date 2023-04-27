@@ -8,7 +8,9 @@ const imagenes = [
     {"src":"/img/hasbulla-3.png", matched:false},
     {"src":"/img/hasbulla-4.png", matched:false},
     {"src":"/img/hasbulla-5.png", matched:false},
-    {"src":"/img/hasbulla-6.png", matched:false}
+    {"src":"/img/hasbulla-6.png", matched:false},
+    {"src":"/img/hasbulla-7.png", matched:false},
+    {"src":"/img/hasbulla-8.png", matched:false}
 ]
 
 function App(){
@@ -17,14 +19,18 @@ function App(){
     const [intentos,setIntentos] = useState(0)
     const [seleccionUno,setSeleccionUno] = useState(null)
     const [seleccionDos,setSeleccionDos] = useState(null)
+    const [desactivado,setDesactivado] = useState(false)
+    const [completados,setCompletados] = useState(0)
 
     const reordenarCartas = () =>{
         const cartasReordenadas = [...imagenes,...imagenes]
             .sort(()=> Math.random()-0.5)
             .map((carta) => ({...carta, id:Math.random()}));
 
+        limpiarSelecciones()
         setCartas(cartasReordenadas)
         setIntentos(0)
+        setCompletados(0)
     }
 
     const handleSeleccion = (carta) =>{
@@ -33,7 +39,9 @@ function App(){
 
     useEffect(()=>{
         if(seleccionUno && seleccionDos){
+            setDesactivado(true)
             if(seleccionUno.src === seleccionDos.src){
+                setCompletados(completados+1)
                 setCartas(cartas => {
                     return cartas.map(carta =>{
                         if(carta.src === seleccionUno.src){
@@ -45,22 +53,39 @@ function App(){
                 })
                 resetTurno()
             }else{
-                resetTurno()
+                setTimeout(()=>resetTurno(),1000)
             }
         }
     },[seleccionDos])
 
-    console.log(cartas)
-
-    const resetTurno = () => {
+    const limpiarSelecciones = () => {
         setSeleccionUno(null)
         setSeleccionDos(null)
-        setIntentos(intentos+1)
     }
+
+    const resetTurno = () => {
+        limpiarSelecciones()    
+        setIntentos(intentos+1)
+        setDesactivado(false)
+    }
+
+    useEffect(()=>{
+        reordenarCartas()
+    },[])
+
+    useEffect(()=>{
+        if(completados === imagenes.length){
+            setTimeout(()=>{
+                alert('¡Juego completado!\nIntentos totales: '+intentos)
+                reordenarCartas()
+            },1000)
+        }
+    },[completados])
 
     return (
         <div className="App">
             <h1>Memoria</h1>
+            <p>Intentos: {intentos}</p>
             <button onClick={reordenarCartas}>Nuevo juego</button>
 
             <div className='card-grid'>
@@ -69,7 +94,8 @@ function App(){
                     key={carta.id}
                     carta={carta}
                     handleSeleccion={handleSeleccion}
-                    flipped={carta === seleccionUno || carta === seleccionDos || carta.matched}/>
+                    flipped={carta === seleccionUno || carta === seleccionDos || carta.matched}
+                    disabled={desactivado}/>
                 ))}
             </div>
         </div>

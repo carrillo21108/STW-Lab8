@@ -4,7 +4,9 @@ import React from 'react'
 function Card(props){
 
     const handleClick = () => {
-        props.handleSeleccion(props.carta)
+        if(!props.disabled){
+            props.handleSeleccion(props.carta)
+        }
     }
 
     return(
