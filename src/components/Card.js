@@ -1,5 +1,6 @@
 import './Card.scss'
 import React from 'react'
+import backImage from '../../public/img/back-image.jpg';
 
 function Card(props){
 
@@ -14,7 +15,7 @@ function Card(props){
             <div className={props.flipped ? "flipped" : ""}>
                 <img className='front' src={props.carta.src}/>
                 <img className='back'
-                src="/img/back-image.jpg"
+                src={backImage}
                 onClick={handleClick}/>
             </div>
         </div>

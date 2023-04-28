@@ -1,16 +1,24 @@
 import './App.scss'
 import React, { useEffect, useState } from 'react'
 import Card from './components/Card'
+import hasbulla1 from '../public/img/hasbulla-1.png'
+import hasbulla2 from '../public/img/hasbulla-2.png'
+import hasbulla3 from '../public/img/hasbulla-3.png'
+import hasbulla4 from '../public/img/hasbulla-4.png'
+import hasbulla5 from '../public/img/hasbulla-5.png'
+import hasbulla6 from '../public/img/hasbulla-6.png'
+import hasbulla7 from '../public/img/hasbulla-7.png'
+import hasbulla8 from '../public/img/hasbulla-8.png'
 
 const imagenes = [
-    {"src":"/img/hasbulla-1.png", matched:false},
-    {"src":"/img/hasbulla-2.png", matched:false},
-    {"src":"/img/hasbulla-3.png", matched:false},
-    {"src":"/img/hasbulla-4.png", matched:false},
-    {"src":"/img/hasbulla-5.png", matched:false},
-    {"src":"/img/hasbulla-6.png", matched:false},
-    {"src":"/img/hasbulla-7.png", matched:false},
-    {"src":"/img/hasbulla-8.png", matched:false}
+    {"src":hasbulla1, matched:false},
+    {"src":hasbulla2, matched:false},
+    {"src":hasbulla3, matched:false},
+    {"src":hasbulla4, matched:false},
+    {"src":hasbulla5, matched:false},
+    {"src":hasbulla6, matched:false},
+    {"src":hasbulla7, matched:false},
+    {"src":hasbulla8, matched:false}
 ]
 
 function App(){
